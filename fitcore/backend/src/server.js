@@ -29,15 +29,21 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: "Error interno del servidor." });
 });
 
-// Auto-seed: si la tabla de ejercicios está vacía, ejecuta el seed
+// Auto-seed: si hay menos de 50 ejercicios, ejecuta los scripts de seed
 const exerciseCount = db.prepare("SELECT COUNT(*) as count FROM exercises").get();
-if (exerciseCount.count === 0) {
-  console.log("[seed] Tabla de ejercicios vacía, ejecutando seed...");
+if (exerciseCount.count < 50) {
+  console.log(`[seed] Solo ${exerciseCount.count} ejercicios, ejecutando seeds...`);
   try {
     require("../db/seed");
-    console.log("[seed] Seed completado.");
+    console.log("[seed] seed.js completado.");
   } catch (err) {
-    console.error("[seed] Error al ejecutar seed:", err.message);
+    console.error("[seed] Error en seed.js:", err.message);
+  }
+  try {
+    require("../db/add-30-exercises");
+    console.log("[seed] add-30-exercises.js completado.");
+  } catch (err) {
+    console.error("[seed] Error en add-30-exercises.js:", err.message);
   }
 }
 
