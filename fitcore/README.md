@@ -2,6 +2,8 @@
 
 Aplicación web (backend + frontend) del proyecto FitCore. Base de datos: **SQLite** (un solo archivo, sin instalar motor aparte).
 
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/alx1621/fitcore)
+
 ## Estructura
 
 ```
