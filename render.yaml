@@ -12,7 +12,4 @@ services:
       - key: PORT
         value: 4000
     healthCheckPath: /api/health
-    disk:
-      name: fitcore-db
-      mountPath: /data
-      sizeGB: 1
+    initialDeployHook: node db/seed.js
