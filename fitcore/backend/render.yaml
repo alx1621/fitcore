@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: fitcore-backend
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 4000
+    healthCheckPath: /api/health
+    disk:
+      name: fitcore-db
+      mountPath: /data
+      sizeGB: 1

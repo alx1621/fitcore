@@ -3,8 +3,16 @@ const fs = require("fs");
 const { DatabaseSync } = require("node:sqlite");
 require("dotenv").config();
 
-const dbPath = path.resolve(__dirname, "..", "..", process.env.DB_PATH || "./db/fitcore.db");
+// En Render, usar el disco persistente; en local, usar ./db/fitcore.db
+const isRender = process.env.RENDER === "true" || process.env.RENDER_DISK_MOUNT_PATH;
+const dbDir = isRender ? "/data" : path.resolve(__dirname, "..", "..", "db");
+const dbPath = process.env.DB_PATH || path.join(dbDir, "fitcore.db");
 const schemaPath = path.resolve(__dirname, "..", "..", "db", "schema.sql");
+
+// Asegurar que el directorio existe
+if (!fs.existsSync(dbDir)) {
+  fs.mkdirSync(dbDir, { recursive: true });
+}
 
 // Abre (o crea) el archivo de base de datos usando el módulo SQLite nativo de Node.js
 const db = new DatabaseSync(dbPath);
