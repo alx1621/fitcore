@@ -4,6 +4,12 @@ import api from "../services/api";
 import { useAuth } from "../context/AuthContext";
 import Spinner from "../components/Spinner";
 
+const DIFFICULTY_CONFIG = {
+  Principiante: { color: "var(--color-success)", time: "30-45 min", sets: "2-3", reps: "10-12", rest: "60s" },
+  Intermedio: { color: "var(--color-accent)", time: "45-60 min", sets: "3-4", reps: "10-15", rest: "60-90s" },
+  Avanzado: { color: "var(--color-danger)", time: "60-75 min", sets: "4-5", reps: "8-12", rest: "90-120s" },
+};
+
 export default function ExerciseDetail() {
   const { id } = useParams();
   const { isAuthenticated } = useAuth();
@@ -41,11 +47,12 @@ export default function ExerciseDetail() {
 
   const hasBoth = exercise.image_url && exercise.animation_url;
   const currentSrc = showGif ? exercise.animation_url : exercise.image_url;
+  const config = DIFFICULTY_CONFIG[exercise.difficulty] || DIFFICULTY_CONFIG.Intermedio;
 
   return (
     <div className="page">
       <div className="container">
-        <Link to="/" className="helper-text">
+        <Link to="/catalogo" className="helper-text">
           ← Volver al catálogo
         </Link>
 
@@ -79,6 +86,41 @@ export default function ExerciseDetail() {
               <span className="tag tag-accent">{exercise.body_category}</span>
               <span className="tag">{exercise.target_muscle}</span>
               <span className="tag">{exercise.equipment}</span>
+            </div>
+
+            {/* Recommended training parameters */}
+            <div className="training-params">
+              <h3 className="training-params-title">Parámetros recomendados</h3>
+              <div className="params-grid">
+                <div className="param-item">
+                  <span className="param-icon">⏱️</span>
+                  <div>
+                    <span className="param-label">Tiempo estimado</span>
+                    <span className="param-value">{config.time}</span>
+                  </div>
+                </div>
+                <div className="param-item">
+                  <span className="param-icon">🔄</span>
+                  <div>
+                    <span className="param-label">Series</span>
+                    <span className="param-value">{config.sets}</span>
+                  </div>
+                </div>
+                <div className="param-item">
+                  <span className="param-icon">💪</span>
+                  <div>
+                    <span className="param-label">Repeticiones</span>
+                    <span className="param-value">{config.reps}</span>
+                  </div>
+                </div>
+                <div className="param-item">
+                  <span className="param-icon">⏸️</span>
+                  <div>
+                    <span className="param-label">Descanso</span>
+                    <span className="param-value">{config.rest}</span>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div className="instructions-block">

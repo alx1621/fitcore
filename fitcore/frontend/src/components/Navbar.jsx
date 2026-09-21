@@ -37,6 +37,10 @@ export default function Navbar() {
 
         <nav className={`nav-links ${menuOpen ? "open" : ""}`}>
           <NavLink to="/" end className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`} onClick={closeMenu}>
+            Inicio
+          </NavLink>
+
+          <NavLink to="/catalogo" className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`} onClick={closeMenu}>
             Catálogo
           </NavLink>
 

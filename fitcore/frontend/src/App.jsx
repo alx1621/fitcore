@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import { RequireAuth, RequireAdmin } from "./components/RouteGuards";
+import Landing from "./pages/Landing";
 import Catalog from "./pages/Catalog";
 import ExerciseDetail from "./pages/ExerciseDetail";
 import Login from "./pages/Login";
@@ -18,7 +19,8 @@ export default function App() {
       <Navbar />
 
       <Routes>
-        <Route path="/" element={<Catalog />} />
+        <Route path="/" element={<Landing />} />
+        <Route path="/catalogo" element={<Catalog />} />
         <Route path="/ejercicios/:id" element={<ExerciseDetail />} />
         <Route path="/login" element={<Login />} />
         <Route path="/registro" element={<Register />} />
@@ -70,7 +72,7 @@ export default function App() {
           <p style={{ marginTop: 8, marginBottom: 12 }}>Catálogo inteligente de ejercicios y rutinas personalizadas</p>
           <div className="footer-links">
             <a href="https://github.com/alx1621/fitcore" target="_blank" rel="noopener noreferrer">GitHub</a>
-            <a href="#catalogo">Catálogo</a>
+            <a href="/catalogo">Catálogo</a>
             <a href="/registro">Crear cuenta</a>
           </div>
         </div>

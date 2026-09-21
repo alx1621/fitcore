@@ -121,9 +121,8 @@ a:focus-visible {
 }
 
 .brand-logo {
-  height: 38px;
+  height: 40px;
   width: auto;
-  mix-blend-mode: screen;
 }
 
 .brand-dot {
@@ -524,6 +523,61 @@ a:focus-visible {
   line-height: 1.7;
 }
 
+/* ---------- Training Parameters ---------- */
+.training-params {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.training-params-title {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: var(--color-accent);
+}
+
+.params-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.param-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.param-icon {
+  font-size: 1.4rem;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(232, 185, 63, 0.1);
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.param-label {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--color-text-dim);
+  margin-bottom: 2px;
+}
+
+.param-value {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
 /* ---------- Routines ---------- */
 .routine-list {
   display: flex;
@@ -658,6 +712,146 @@ a:focus-visible {
 
 .footer-links a:hover {
   color: var(--color-accent);
+}
+
+/* ---------- Features Section ---------- */
+.features-section {
+  padding: 40px 0;
+  text-align: center;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.feature-card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  text-align: left;
+  transition: all var(--transition-medium);
+}
+
+.feature-card:hover {
+  border-color: var(--color-accent-dim);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.feature-icon {
+  font-size: 2rem;
+  margin-bottom: 16px;
+}
+
+.feature-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.feature-desc {
+  color: var(--color-text-dim);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ---------- Steps Section ---------- */
+.how-section {
+  padding: 40px 0;
+  text-align: center;
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+}
+
+.step-card {
+  text-align: center;
+  padding: 24px 20px;
+}
+
+.step-number {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-accent), #d4a52a);
+  color: var(--color-accent-text);
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  box-shadow: 0 4px 16px rgba(232, 185, 63, 0.3);
+}
+
+.step-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.step-desc {
+  color: var(--color-text-dim);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ---------- App Promo Section ---------- */
+.app-promo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  padding: 40px 0;
+}
+
+.app-promo-content {
+  text-align: left;
+}
+
+.app-promo-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.app-promo-logo {
+  height: 180px;
+  width: auto;
+  filter: drop-shadow(0 8px 32px rgba(232, 185, 63, 0.3));
+}
+
+.app-badges {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.app-badge {
+  padding: 12px 24px;
+  border-radius: 10px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--color-text-dim);
+}
+
+/* ---------- CTA Section ---------- */
+.cta-section {
+  text-align: center;
+  padding: 48px 0;
 }
 
 /* ---------- Hero Section ---------- */
@@ -1171,5 +1365,66 @@ a:focus-visible {
 
   .brand-logo {
     height: 30px;
+  }
+
+  /* Landing sections */
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .steps-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .app-promo {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    text-align: center;
+  }
+
+  .app-promo-content {
+    text-align: center;
+    order: 2;
+  }
+
+  .app-promo-visual {
+    order: 1;
+  }
+
+  .app-promo-logo {
+    height: 120px;
+  }
+
+  .app-badges {
+    justify-content: center;
+  }
+
+  .cta-section {
+    padding: 32px 0;
+  }
+
+  /* Training params */
+  .params-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .param-item {
+    gap: 8px;
+  }
+
+  .param-icon {
+    width: 30px;
+    height: 30px;
+    font-size: 1.1rem;
+  }
+
+  .param-label {
+    font-size: 0.72rem;
+  }
+
+  .param-value {
+    font-size: 0.88rem;
   }
 }
