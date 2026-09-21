@@ -62,6 +62,20 @@ export default function Catalog() {
               Ver ejercicios
             </a>
           </div>
+          <div className="hero-stats">
+            <div className="hero-stat">
+              <div className="hero-stat-value">90+</div>
+              <div className="hero-stat-label">Ejercicios</div>
+            </div>
+            <div className="hero-stat">
+              <div className="hero-stat-value">6</div>
+              <div className="hero-stat-label">Categorías</div>
+            </div>
+            <div className="hero-stat">
+              <div className="hero-stat-value">∞</div>
+              <div className="hero-stat-label">Rutinas</div>
+            </div>
+          </div>
         </section>
 
         <hr className="section-divider" />

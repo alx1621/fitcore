@@ -62,7 +62,19 @@ export default function App() {
         />
       </Routes>
 
-      <footer className="footer">FitCore — Proyecto académico de catálogo de ejercicios y rutinas</footer>
+      <footer className="footer">
+        <div className="container">
+          <div className="footer-brand">
+            FitCore<span className="footer-accent">.</span>
+          </div>
+          <p style={{ marginTop: 8, marginBottom: 12 }}>Catálogo inteligente de ejercicios y rutinas personalizadas</p>
+          <div className="footer-links">
+            <a href="https://github.com/alx1621/fitcore" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="#catalogo">Catálogo</a>
+            <a href="/registro">Crear cuenta</a>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
