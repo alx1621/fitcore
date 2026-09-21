@@ -95,13 +95,18 @@ a:focus-visible {
 
 .brand {
   display: flex;
-  align-items: baseline;
-  gap: 6px;
+  align-items: center;
+  gap: 8px;
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 1.25rem;
   text-decoration: none;
   color: var(--color-text);
+}
+
+.brand-logo {
+  height: 36px;
+  width: auto;
 }
 
 .brand-dot {
@@ -554,6 +559,51 @@ a:focus-visible {
   font-size: 0.85rem;
   text-align: center;
 }
+
+/* ---------- Hero Section ---------- */
+.hero {
+  text-align: center;
+  padding: 48px 0 32px;
+}
+
+.hero-logo {
+  height: 120px;
+  width: auto;
+  margin-bottom: 24px;
+  filter: drop-shadow(0 4px 20px rgba(232, 185, 63, 0.2));
+}
+
+.hero-title {
+  font-size: 2.8rem;
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+
+.hero-accent {
+  color: var(--color-accent);
+}
+
+.hero-subtitle {
+  font-size: 1.15rem;
+  color: var(--color-text-dim);
+  max-width: 540px;
+  margin: 0 auto 28px;
+  line-height: 1.6;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-lg {
+  padding: 14px 28px;
+  font-size: 1rem;
+  border-radius: 12px;
+}
 /* ---------- Password field with show/hide toggle ---------- */
 .password-field-wrapper {
   position: relative;
@@ -897,5 +947,38 @@ a:focus-visible {
   .footer {
     font-size: 0.78rem;
     padding: 16px 0;
+  }
+
+  /* Hero */
+  .hero {
+    padding: 32px 0 24px;
+  }
+
+  .hero-logo {
+    height: 80px;
+    margin-bottom: 16px;
+  }
+
+  .hero-title {
+    font-size: 1.8rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+    padding: 0 8px;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .brand-logo {
+    height: 28px;
   }
 }

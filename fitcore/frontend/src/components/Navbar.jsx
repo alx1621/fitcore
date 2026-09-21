@@ -21,6 +21,7 @@ export default function Navbar() {
     <header className="navbar">
       <div className="container navbar-inner">
         <NavLink to="/" className="brand" onClick={closeMenu}>
+          <img src="/logo.png" alt="FitCore" className="brand-logo" />
           FitCore<span className="brand-dot">.</span>
         </NavLink>
 
