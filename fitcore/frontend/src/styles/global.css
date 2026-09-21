@@ -670,3 +670,232 @@ a:focus-visible {
   color: var(--color-text);
   border-color: var(--color-accent-dim);
 }
+
+/* ---------- Hamburger menu ---------- */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 200;
+}
+
+.hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--color-text);
+  border-radius: 2px;
+  transition: transform 0.25s, opacity 0.25s;
+}
+
+.hamburger.open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ---------- Mobile < 768px ---------- */
+@media (max-width: 767px) {
+  .hamburger {
+    display: flex;
+  }
+
+  .nav-links {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--color-bg);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    z-index: 150;
+    padding: 80px 24px 40px;
+    overflow-y: auto;
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .nav-link {
+    font-size: 1.15rem;
+    padding: 12px 20px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .nav-user-name {
+    font-size: 1rem;
+    text-align: center;
+    padding: 8px 0;
+  }
+
+  .nav-links .btn {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .container {
+    padding: 0 16px;
+  }
+
+  .page {
+    padding: 24px 0 60px;
+  }
+
+  .page-title {
+    font-size: 1.5rem;
+  }
+
+  .page-subtitle {
+    font-size: 0.9rem;
+  }
+
+  /* Filters */
+  .filters-bar {
+    flex-direction: column;
+  }
+
+  .filters-bar input[type="search"],
+  .filters-bar select {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .filters-clear-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Exercise grid */
+  .exercise-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+  }
+
+  .exercise-card-image {
+    height: 140px;
+  }
+
+  .exercise-card-body {
+    padding: 10px 12px 14px;
+    gap: 6px;
+  }
+
+  .exercise-card-title {
+    font-size: 0.95rem;
+  }
+
+  .tag {
+    font-size: 0.68rem;
+    padding: 2px 7px;
+  }
+
+  /* Detail page */
+  .detail-layout {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .detail-image {
+    max-width: 100%;
+    aspect-ratio: 1 / 1;
+  }
+
+  .instructions-block {
+    padding: 16px;
+    font-size: 0.92rem;
+  }
+
+  /* Form cards */
+  .form-card {
+    margin: 24px 16px;
+    padding: 20px;
+  }
+
+  /* Routines */
+  .routine-row {
+    padding: 14px 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .routine-exercise-row {
+    grid-template-columns: 28px 1fr auto;
+    gap: 10px;
+    padding: 10px 0;
+  }
+
+  .add-exercise-row {
+    flex-direction: column;
+  }
+
+  .add-exercise-row select {
+    min-width: 0;
+    width: 100%;
+  }
+
+  /* Top bar actions */
+  .top-bar-actions {
+    width: 100%;
+  }
+
+  .top-bar-actions .btn {
+    flex: 1;
+  }
+
+  /* Page header */
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  /* Modal */
+  .modal-card {
+    margin: 16px;
+    padding: 20px;
+  }
+
+  /* Routine detail - sets/reps */
+  .routine-exercise-row {
+    grid-template-columns: 28px 1fr;
+    gap: 8px;
+  }
+
+  .routine-exercise-row .sets-reps-editable {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+  }
+
+  .routine-exercise-row .btn-danger {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+
+  /* Settings */
+  .form-card-wide {
+    max-width: 100%;
+  }
+
+  /* Footer */
+  .footer {
+    font-size: 0.78rem;
+    padding: 16px 0;
+  }
+}
