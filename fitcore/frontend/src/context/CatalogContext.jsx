@@ -16,6 +16,7 @@ export function CatalogProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const scrollRef = useRef(0);
+  const forceTopRef = useRef(false);
 
   useEffect(() => {
     api
@@ -51,6 +52,12 @@ export function CatalogProvider({ children }) {
       window.scrollTo(0, 0);
       return;
     }
+    if (forceTopRef.current) {
+      forceTopRef.current = false;
+      scrollRef.current = 0;
+      window.requestAnimationFrame(() => window.scrollTo(0, 0));
+      return;
+    }
     const saved = scrollRef.current;
     if (saved <= 0) return;
     window.requestAnimationFrame(() => window.scrollTo(0, saved));
@@ -64,6 +71,7 @@ export function CatalogProvider({ children }) {
 
   const scrollToTop = useCallback(() => {
     scrollRef.current = 0;
+    forceTopRef.current = true;
     window.scrollTo(0, 0);
   }, []);
 
@@ -88,6 +96,7 @@ export function CatalogProvider({ children }) {
     clearFilters,
     saveScroll,
     getScroll,
+    scrollToTop,
   };
 
   return <CatalogContext.Provider value={value}>{children}</CatalogContext.Provider>;

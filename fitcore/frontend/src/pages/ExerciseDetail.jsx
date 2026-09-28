@@ -20,7 +20,6 @@ export default function ExerciseDetail() {
   const [selectedRoutine, setSelectedRoutine] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
-  const [showGif, setShowGif] = useState(true);
 
   useEffect(() => {
     api.get(`/exercises/${id}`).then((res) => setExercise(res.data));
@@ -54,8 +53,7 @@ export default function ExerciseDetail() {
 
   if (!exercise) return <Spinner label="Cargando ejercicio..." />;
 
-  const hasBoth = Boolean(exercise.image_url && exercise.animation_url);
-  const currentSrc = (showGif ? exercise.animation_url : exercise.image_url) || exercise.image_url || exercise.animation_url;
+  const currentSrc = exercise.animation_url || exercise.image_url;
   const config = DIFFICULTY_CONFIG[exercise.difficulty] || DIFFICULTY_CONFIG.Intermedio;
 
   return (
@@ -67,22 +65,6 @@ export default function ExerciseDetail() {
 
         <div className="detail-layout" style={{ marginTop: 20 }}>
           <div>
-            {hasBoth && (
-              <div className="image-toggle">
-                <button
-                  className={`image-toggle-btn ${!showGif ? "active" : ""}`}
-                  onClick={() => setShowGif(false)}
-                >
-                  Imagen
-                </button>
-                <button
-                  className={`image-toggle-btn ${showGif ? "active" : ""}`}
-                  onClick={() => setShowGif(true)}
-                >
-                  Animación
-                </button>
-              </div>
-            )}
             {currentSrc && (
               <img src={currentSrc} alt={exercise.name} className="detail-image" />
             )}

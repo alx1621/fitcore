@@ -1,6 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useCatalog } from "../context/CatalogContext";
 
 export default function Landing() {
+  const navigate = useNavigate();
+  const { scrollToTop } = useCatalog();
+
+  function goToCatalog() {
+    scrollToTop();
+    navigate("/catalogo");
+  }
+
   return (
     <div className="page">
       <div className="container">
@@ -18,9 +27,9 @@ export default function Landing() {
             <Link to="/registro" className="btn btn-primary btn-lg">
               Crear cuenta gratis
             </Link>
-            <Link to="/catalogo" className="btn btn-secondary btn-lg">
+            <button type="button" className="btn btn-secondary btn-lg" onClick={goToCatalog}>
               Ver catálogo
-            </Link>
+            </button>
           </div>
           <div className="hero-stats">
             <div className="hero-stat">
@@ -162,9 +171,9 @@ export default function Landing() {
             <Link to="/registro" className="btn btn-primary btn-lg">
               Crear cuenta gratis
             </Link>
-            <Link to="/catalogo" className="btn btn-secondary btn-lg">
+            <button type="button" className="btn btn-secondary btn-lg" onClick={goToCatalog}>
               Explorar ejercicios
-            </Link>
+            </button>
           </div>
         </section>
       </div>
