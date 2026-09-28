@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import api from "../services/api";
 import { useAuth } from "../context/AuthContext";
 import Spinner from "../components/Spinner";
@@ -12,18 +12,27 @@ const DIFFICULTY_CONFIG = {
 
 export default function ExerciseDetail() {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
   const { isAuthenticated } = useAuth();
   const [exercise, setExercise] = useState(null);
   const [routines, setRoutines] = useState([]);
   const [selectedRoutine, setSelectedRoutine] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
-  const [showGif, setShowGif] = useState(false);
+  const [showGif, setShowGif] = useState(true);
 
   useEffect(() => {
     api.get(`/exercises/${id}`).then((res) => setExercise(res.data));
-    setShowGif(false);
   }, [id]);
+
+  function handleBack() {
+    if (location.state?.fromCatalog) {
+      navigate(-1);
+    } else {
+      navigate("/catalogo");
+    }
+  }
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -45,16 +54,16 @@ export default function ExerciseDetail() {
 
   if (!exercise) return <Spinner label="Cargando ejercicio..." />;
 
-  const hasBoth = exercise.image_url && exercise.animation_url;
-  const currentSrc = showGif ? exercise.animation_url : exercise.image_url;
+  const hasBoth = Boolean(exercise.image_url && exercise.animation_url);
+  const currentSrc = (showGif ? exercise.animation_url : exercise.image_url) || exercise.image_url || exercise.animation_url;
   const config = DIFFICULTY_CONFIG[exercise.difficulty] || DIFFICULTY_CONFIG.Intermedio;
 
   return (
     <div className="page">
       <div className="container">
-        <Link to="/catalogo" className="helper-text">
+        <button type="button" className="helper-text back-link" onClick={handleBack}>
           ← Volver al catálogo
-        </Link>
+        </button>
 
         <div className="detail-layout" style={{ marginTop: 20 }}>
           <div>

@@ -1,46 +1,26 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import api from "../services/api";
 import Spinner from "../components/Spinner";
-
-const EMPTY_FILTERS = { category: "", muscle: "", equipment: "", search: "" };
+import { useCatalog } from "../context/CatalogContext";
 
 export default function Catalog() {
-  const [exercises, setExercises] = useState([]);
-  const [filters, setFilters] = useState({ categories: [], muscles: [], equipment: [] });
-  const [selected, setSelected] = useState(EMPTY_FILTERS);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const {
+    exercises,
+    filters,
+    selected,
+    loading,
+    error,
+    hasActiveFilters,
+    updateFilter,
+    clearFilters,
+    saveScroll,
+  } = useCatalog();
 
   useEffect(() => {
-    api.get("/exercises/filters").then((res) => setFilters(res.data));
-  }, []);
-
-  useEffect(() => {
-    const params = {};
-    if (selected.category) params.category = selected.category;
-    if (selected.muscle) params.muscle = selected.muscle;
-    if (selected.equipment) params.equipment = selected.equipment;
-    if (selected.search) params.search = selected.search;
-
-    setLoading(true);
-    setError("");
-    const timeout = setTimeout(() => {
-      api
-        .get("/exercises", { params })
-        .then((res) => setExercises(res.data))
-        .catch(() => setError("No se pudo cargar el catálogo. Verifica que el backend esté corriendo."))
-        .finally(() => setLoading(false));
-    }, 250);
-
-    return () => clearTimeout(timeout);
-  }, [selected]);
-
-  function updateFilter(key, value) {
-    setSelected((prev) => ({ ...prev, [key]: value }));
-  }
-
-  const hasActiveFilters = Object.values(selected).some((v) => v !== "");
+    const handleScroll = () => saveScroll(window.scrollY);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [saveScroll]);
 
   return (
     <div className="page">
@@ -62,7 +42,10 @@ export default function Catalog() {
             value={selected.search}
             onChange={(e) => updateFilter("search", e.target.value)}
           />
-          <select value={selected.category} onChange={(e) => updateFilter("category", e.target.value)}>
+          <select
+            value={selected.category}
+            onChange={(e) => updateFilter("category", e.target.value)}
+          >
             <option value="">Categoría corporal</option>
             {filters.categories.map((c) => (
               <option key={c} value={c}>
@@ -78,7 +61,10 @@ export default function Catalog() {
               </option>
             ))}
           </select>
-          <select value={selected.equipment} onChange={(e) => updateFilter("equipment", e.target.value)}>
+          <select
+            value={selected.equipment}
+            onChange={(e) => updateFilter("equipment", e.target.value)}
+          >
             <option value="">Equipo</option>
             {filters.equipment.map((eq) => (
               <option key={eq} value={eq}>
@@ -87,7 +73,7 @@ export default function Catalog() {
             ))}
           </select>
           {hasActiveFilters && (
-            <button type="button" className="filters-clear-btn" onClick={() => setSelected(EMPTY_FILTERS)}>
+            <button type="button" className="filters-clear-btn" onClick={clearFilters}>
               Limpiar filtros ✕
             </button>
           )}
@@ -103,7 +89,12 @@ export default function Catalog() {
         {!loading && !error && exercises.length > 0 && (
           <div className="exercise-grid">
             {exercises.map((ex) => (
-              <Link key={ex.id} to={`/ejercicios/${ex.id}`} className="exercise-card">
+              <Link
+                key={ex.id}
+                to={`/ejercicios/${ex.id}`}
+                state={{ fromCatalog: true }}
+                className="exercise-card"
+              >
                 <div
                   className="exercise-card-image"
                   style={{ backgroundImage: ex.image_url ? `url(${ex.image_url})` : undefined }}

@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import { RequireAuth, RequireAdmin } from "./components/RouteGuards";
+import { CatalogProvider } from "./context/CatalogContext";
 import Landing from "./pages/Landing";
 import Catalog from "./pages/Catalog";
 import ExerciseDetail from "./pages/ExerciseDetail";
@@ -15,8 +16,9 @@ import Settings from "./pages/Settings";
 
 export default function App() {
   return (
-    <div className="app-shell">
-      <Navbar />
+    <CatalogProvider>
+      <div className="app-shell">
+        <Navbar />
 
       <Routes>
         <Route path="/" element={<Landing />} />
@@ -77,6 +79,7 @@ export default function App() {
           </div>
         </div>
       </footer>
-    </div>
+      </div>
+    </CatalogProvider>
   );
 }
