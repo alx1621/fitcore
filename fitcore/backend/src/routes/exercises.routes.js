@@ -4,35 +4,57 @@ const { optionalAuth, requireAuth, requireAdmin } = require("../middleware/auth"
 
 const router = express.Router();
 
-// GET /api/exercises?category=&muscle=&equipment=&search=
-// Accesible para invitados (RF: catálogo en modo solo lectura)
-router.get("/", optionalAuth, (req, res) => {
+function buildFilter(req) {
   const { category, muscle, equipment, search } = req.query;
-
-  let query = "SELECT * FROM exercises WHERE 1=1";
+  let where = "";
   const params = [];
 
   if (category) {
-    query += " AND body_category = ?";
+    where += " AND body_category = ?";
     params.push(category);
   }
   if (muscle) {
-    query += " AND target_muscle = ?";
+    where += " AND target_muscle = ?";
     params.push(muscle);
   }
   if (equipment) {
-    query += " AND equipment = ?";
+    where += " AND equipment = ?";
     params.push(equipment);
   }
   if (search) {
-    query += " AND name LIKE ?";
+    where += " AND name LIKE ?";
     params.push(`%${search}%`);
   }
 
-  query += " ORDER BY name ASC";
+  return { where, params };
+}
 
-  const exercises = db.prepare(query).all(...params);
+// GET /api/exercises?category=&muscle=&equipment=&search=&limit=&sort=
+// Accesible para invitados (RF: catálogo en modo solo lectura)
+router.get("/", optionalAuth, (req, res) => {
+  const { where, params } = buildFilter(req);
+  const sort = req.query.sort === "id" ? "id" : "name";
+
+  let query = `SELECT * FROM exercises WHERE 1=1${where} ORDER BY ${sort} ASC`;
+  const queryParams = [...params];
+
+  const limit = Number.parseInt(req.query.limit, 10);
+  if (Number.isInteger(limit) && limit > 0) {
+    query += " LIMIT ?";
+    queryParams.push(Math.min(limit, 200));
+  }
+
+  const exercises = db.prepare(query).all(...queryParams);
   res.json(exercises);
+});
+
+// GET /api/exercises/count -> total de ejercicios que cumplen los filtros
+router.get("/count", (req, res) => {
+  const { where, params } = buildFilter(req);
+  const row = db
+    .prepare(`SELECT COUNT(*) AS total FROM exercises WHERE 1=1${where}`)
+    .get(...params);
+  res.json({ total: row.total });
 });
 
 // GET /api/exercises/filters -> valores únicos para poblar los selects del filtro

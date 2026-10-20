@@ -357,6 +357,59 @@ a:focus-visible {
   line-height: 1.6;
 }
 
+/* ---------- Catalog preview ---------- */
+.preview-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(232, 185, 63, 0.35);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, rgba(232, 185, 63, 0.12), rgba(232, 185, 63, 0.03));
+}
+
+.preview-banner-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.preview-banner-text strong {
+  font-family: var(--font-display);
+  font-size: 0.98rem;
+}
+
+.preview-banner-text span {
+  color: var(--color-text-dim);
+  font-size: 0.88rem;
+}
+
+.preview-gate {
+  margin-top: 32px;
+  padding: 36px 24px;
+  text-align: center;
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-card);
+}
+
+.preview-gate-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.preview-gate-text {
+  color: var(--color-text-dim);
+  font-size: 0.94rem;
+  line-height: 1.6;
+  max-width: 520px;
+  margin: 0 auto 22px;
+}
+
 /* ---------- Filters ---------- */
 .filters-bar {
   display: flex;
@@ -1354,6 +1407,19 @@ a:focus-visible {
   /* Landing sections */
   .features-grid {
     grid-template-columns: 1fr;
+  }
+
+  .preview-banner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .preview-banner .btn {
+    width: 100%;
+  }
+
+  .preview-gate {
+    padding: 28px 18px;
   }
 
   .steps-grid {

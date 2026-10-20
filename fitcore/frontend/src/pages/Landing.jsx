@@ -1,9 +1,19 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useCatalog } from "../context/CatalogContext";
 
 export default function Landing() {
   const navigate = useNavigate();
+  const { hash } = useLocation();
   const { scrollToTop } = useCatalog();
+
+  useEffect(() => {
+    if (hash !== "#descargar") return;
+    const frame = window.requestAnimationFrame(() => {
+      document.getElementById("descargar")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [hash]);
 
   function goToCatalog() {
     scrollToTop();
@@ -136,7 +146,7 @@ export default function Landing() {
         <hr className="section-divider" />
 
         {/* App promo */}
-        <section className="app-promo">
+        <section className="app-promo" id="descargar">
           <div className="app-promo-content">
             <span className="eyebrow">Próximamente</span>
             <h2 className="page-title" style={{ marginBottom: 16 }}>

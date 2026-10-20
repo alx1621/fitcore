@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Spinner from "../components/Spinner";
+import DownloadAppButton from "../components/DownloadAppButton";
 import { useCatalog } from "../context/CatalogContext";
 
 export default function Catalog() {
@@ -8,6 +9,8 @@ export default function Catalog() {
     exercises,
     filters,
     selected,
+    total,
+    hasMore,
     loading,
     error,
     hasActiveFilters,
@@ -34,6 +37,19 @@ export default function Catalog() {
             </p>
           </div>
         </div>
+
+        {!loading && hasMore && (
+          <div className="preview-banner">
+            <div className="preview-banner-text">
+              <strong>Vista previa del catálogo</strong>
+              <span>
+                Mostrando {exercises.length} de {total} ejercicios. Descarga la app para verlos
+                todos.
+              </span>
+            </div>
+            <DownloadAppButton className="btn btn-primary" />
+          </div>
+        )}
 
         <div className="filters-bar">
           <input
@@ -109,6 +125,17 @@ export default function Catalog() {
                 </div>
               </Link>
             ))}
+          </div>
+        )}
+
+        {!loading && !error && hasMore && (
+          <div className="preview-gate">
+            <h3 className="preview-gate-title">Hay {total - exercises.length} ejercicios más</h3>
+            <p className="preview-gate-text">
+              El catálogo completo, las animaciones y tus rutinas están en la app de FitCore.
+              Descárgala y entrena desde cualquier lugar.
+            </p>
+            <DownloadAppButton />
           </div>
         )}
       </div>
