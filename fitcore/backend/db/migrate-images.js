@@ -70,8 +70,7 @@ const allExercises = db.prepare("SELECT id, name FROM exercises").all();
 let updated = 0;
 let skipped = 0;
 
-db.exec("BEGIN");
-try {
+const migrate = db.transaction(() => {
   for (const ex of allExercises) {
     const mapping = imageMap[ex.name];
     if (mapping) {
@@ -84,10 +83,8 @@ try {
       skipped++;
     }
   }
-  db.exec("COMMIT");
-} catch (err) {
-  db.exec("ROLLBACK");
-  throw err;
-}
+});
+
+migrate();
 
 console.log(`Migración completada: ${updated} ejercicios actualizados, ${skipped} sin mapeo.`);

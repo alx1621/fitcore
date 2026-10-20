@@ -489,13 +489,10 @@ if (toInsert.length === 0) {
   process.exit(0);
 }
 
-db.exec("BEGIN");
-try {
-  for (const row of toInsert) insert.run({ ...row, created_by: admin.id });
-  db.exec("COMMIT");
-} catch (err) {
-  db.exec("ROLLBACK");
-  throw err;
-}
+const insertMany = db.transaction((rows) => {
+  for (const row of rows) insert.run({ ...row, created_by: admin.id });
+});
+
+insertMany(toInsert);
 
 console.log(`Se agregaron ${toInsert.length} ejercicios nuevos al catálogo.`);

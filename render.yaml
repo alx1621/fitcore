@@ -11,5 +11,11 @@ services:
         value: production
       - key: PORT
         value: 4000
+      - key: LIBSQL_URL
+        sync: false
+      - key: LIBSQL_AUTH_TOKEN
+        sync: false
+      - key: JWT_SECRET
+        sync: false
     healthCheckPath: /api/health
     initialDeployHook: node db/seed.js

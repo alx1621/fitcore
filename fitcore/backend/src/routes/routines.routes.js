@@ -44,8 +44,7 @@ router.post("/", (req, res) => {
   if (!name) return res.status(400).json({ error: "El nombre de la rutina es obligatorio." });
 
   function createRoutine() {
-    db.exec("BEGIN");
-    try {
+    const run = db.transaction(() => {
       const info = db
         .prepare("INSERT INTO routines (user_id, name, description) VALUES (?, ?, ?)")
         .run(req.user.id, name, description || null);
@@ -70,12 +69,10 @@ router.post("/", (req, res) => {
         });
       }
 
-      db.exec("COMMIT");
       return routineId;
-    } catch (err) {
-      db.exec("ROLLBACK");
-      throw err;
-    }
+    });
+
+    return run();
   }
 
   const routineId = createRoutine();
